@@ -9,10 +9,17 @@ services:
       - "9012:8080"                      # the web UI  -> http://YOUR-IP:9012
       - "52000-52100:52000-52100/udp"    # WebRTC media (screen/audio)
     environment:
-      NEKO_DESKTOP_SCREEN: "1280x720@30"
+      # PORTRAIT phone-shaped screen -> fits your phone with no zoom.
+      # (For laptop use instead, change to 1280x720@30)
+      NEKO_DESKTOP_SCREEN: "480x1040@30"
       NEKO_MEMBER_PROVIDER: "multiuser"
       NEKO_MEMBER_MULTIUSER_USER_PASSWORD: "${NEKO_USER_PASSWORD}"
       NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: "${NEKO_ADMIN_PASSWORD}"
       NEKO_WEBRTC_EPR: "52000-52100"
       NEKO_WEBRTC_NAT1TO1: "${NEKO_PUBLIC_IP}"
       NEKO_WEBRTC_ICELITE: "true"
+    volumes:
+      - neko-data:/home/neko          # keeps all logins/cookies permanently
+
+volumes:
+  neko-data:
